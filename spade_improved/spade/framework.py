@@ -13,13 +13,13 @@ from .core.patches import EdgeAnchoredExtractor, UniformGridExtractor, PatchCach
 from .core.metrics import create_metric, compute_multi_metric
 from .plugins.panels import create_panel
 
-from ..utils.image_utils import (
+from utils.image_utils import (
     load_image, 
     validate_image_pair, 
     preprocess_image_pair,
     compute_image_stats
 )
-from ..utils.performance import (
+from utils.performance import (
     Timer, 
     BatchProcessor, 
     MemoryEfficientCache,
@@ -284,7 +284,7 @@ class SPADEAnalyzer:
         viz_paths = {}
         
         # Import visualization modules lazily
-        from ..utils.image_utils import save_image
+        from utils.image_utils import save_image
         
         # Generate heatmap (simplified version)
         if self.config.visualization.generate_heatmaps:
