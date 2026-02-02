@@ -40,6 +40,7 @@ from spade.core.base import (
 from .core.metrics import create_metric
 from .plugins.panels import create_panel, get_panel_registry
 from .report_generator import generate_report, SPADEReportGenerator
+from .advanced_plots import DisplayVisualizer, generate_all_plots
 
 __all__ = [
     # Main API
@@ -78,4 +79,8 @@ __all__ = [
     # Report Generation
     "generate_report",
     "SPADEReportGenerator",
+
+    # Advanced Plots
+    "DisplayVisualizer",
+    "generate_all_plots",
 ]

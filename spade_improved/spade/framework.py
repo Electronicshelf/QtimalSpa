@@ -207,6 +207,12 @@ class SPADEAnalyzer:
         results["num_patches"] = len(coords)
         results["metric"] = self.config.metric.metric_name
         results["panel"] = self.config.panel.panel_name
+        if self.config.analysis.return_patch_data:
+            results["patch_coords"] = coords
+            results["patch_distances"] = distances
+            results["image_shape"] = [int(H), int(W)]
+            results["patch_size"] = int(self.config.patch.patch_size)
+            results["stride"] = int(self.config.patch.stride)
         
         # Generate visualizations
         if any([
@@ -322,7 +328,8 @@ class SPADEAnalyzer:
 
 
 def run_analysis(ref_path: str, cap_path: str, output_dir: str, 
-                config: Optional[SPADEConfig] = None) -> Dict[str, Any]:
+                config: Optional[SPADEConfig] = None,
+                return_patch_data: Optional[bool] = None) -> Dict[str, Any]:
     """
     Convenient function to run analysis with default or provided config.
     
@@ -336,11 +343,14 @@ def run_analysis(ref_path: str, cap_path: str, output_dir: str,
         Analysis results dictionary
     """
     analyzer = SPADEAnalyzer(config)
+    if return_patch_data is not None:
+        analyzer.config.analysis.return_patch_data = bool(return_patch_data)
     return analyzer.analyze(ref_path, cap_path, output_dir)
 
 
 def quick_analysis(ref_path: str, cap_path: str, output_dir: str, 
-                  preset: str = "default") -> Dict[str, Any]:
+                  preset: str = "default",
+                  return_patch_data: Optional[bool] = None) -> Dict[str, Any]:
     """
     Run quick analysis with preset configuration.
     
@@ -355,4 +365,4 @@ def quick_analysis(ref_path: str, cap_path: str, output_dir: str,
     """
     from .config import load_preset
     config = load_preset(preset)
-    return run_analysis(ref_path, cap_path, output_dir, config)
+    return run_analysis(ref_path, cap_path, output_dir, config, return_patch_data=return_patch_data)

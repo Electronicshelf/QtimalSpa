@@ -59,6 +59,7 @@ class AnalysisConfig:
     bad_absolute: float = 0.05
     min_cluster: int = 4
     thresholds: Dict[str, float] = field(default_factory=lambda: {"good": 0.01, "warning": 0.05})
+    return_patch_data: bool = False
 
 
 @dataclass
@@ -188,7 +189,7 @@ def load_legacy_config(path: str) -> SPADEConfig:
     panel_keys = ["analysis_panel", "analysis_panel_file", "analysis_color_matrix", "analysis_color_space"]
     viz_keys = ["heatmap_style", "alpha", "luma_output_encoding"]
     analysis_keys = ["score_mode", "score_topk", "topn_patches", "bad_mode", 
-                    "bad_percentile", "bad_absolute", "min_cluster", "thresholds"]
+                    "bad_percentile", "bad_absolute", "min_cluster", "thresholds", "return_patch_data"]
     perf_keys = ["device", "batch"]
     
     for key, value in legacy.items():
