@@ -1,0 +1,53 @@
+{
+  "patch": {
+    "patch_size": 64,
+    "stride": 64,
+    "edge_band": 64,
+    "extractor_type": "edge_anchored"
+  },
+  "metric": {
+    "metric_name": "perceptual",
+    "metric_params": {
+      "luma_factor": 2.0
+    },
+    "use_multi_metric": false,
+    "multi_metrics": ["l2", "perceptual"],
+    "multi_weights": [0.6, 0.4]
+  },
+  "panel": {
+    "panel_name": "OLED_DEFAULT",
+    "panel_json_path": "panel_matrices.json",
+    "custom_matrix": null
+  },
+  "visualization": {
+    "generate_heatmaps": true,
+    "generate_luma_maps": true,
+    "generate_log_radiance": true,
+    "generate_contours": true,
+    "heatmap_style": "all",
+    "heatmap_alpha": 0.4,
+    "luma_output_encoding": "srgb",
+    "contour_levels": 12
+  },
+  "analysis": {
+    "score_mode": "all",
+    "score_topk": 30,
+    "topn_patches": 20,
+    "bad_mode": "percentile",
+    "bad_percentile": 95.0,
+    "bad_absolute": 0.05,
+    "min_cluster": 4,
+    "thresholds": {
+      "good": 0.01,
+      "warning": 0.05
+    }
+  },
+  "performance": {
+    "device": "cpu",
+    "batch_size": 512,
+    "use_cache": true,
+    "cache_size_mb": 500.0,
+    "n_workers": 1,
+    "use_parallel": false
+  }
+}
