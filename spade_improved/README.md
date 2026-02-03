@@ -66,6 +66,30 @@ for ref, cap in image_pairs:
     results = analyzer.analyze(ref, cap, f"output_{i}")
 ```
 
+### Advanced Plots
+
+SPADE includes advanced plot utilities in `spade.advanced_plots`.
+To generate these plots you must enable patch data output.
+
+```python
+from spade import quick_analysis
+from spade.advanced_plots import generate_all_plots
+from utils.image_utils import load_image
+
+results = quick_analysis(
+    ref_path="ref.png",
+    cap_path="cap.png",
+    output_dir="output",
+    return_patch_data=True
+)
+
+ref_img = load_image("ref.png")
+cap_img = load_image("cap.png")
+plot_paths = generate_all_plots(results, ref_img, cap_img, "output/advanced_plots")
+```
+
+See `ADVANCED_VISUALIZATION_GUIDE.md` and `examples/advanced_plots_examples.py`.
+
 ## 📋 Configuration
 
 ### Hierarchical Configuration
@@ -104,6 +128,7 @@ config.analysis.score_mode = "all"  # all, edge, interior
 config.analysis.score_topk = 30
 config.analysis.bad_percentile = 95.0
 config.analysis.thresholds = {"good": 0.01, "warning": 0.05}
+config.analysis.return_patch_data = False  # enable for advanced plots
 
 # Performance
 config.performance.device = "cpu"  # or "cuda"
